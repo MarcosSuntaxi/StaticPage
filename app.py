@@ -1,19 +1,32 @@
-import sys
+from flask import Flask, render_template
 import mariadb
 
-try:
+app = Flask(__name__)
 
-    conn = mariadb. connect(
-    user="marcus",
-    password="12345" ,
-    host="54.205.101.113",
-    port=3306,
-    database="Users"
+# Configuración de conexión a la base de datos
+db_config = {
+    'host': '54.205.101.113',
+    'user': 'marcus',
+    'password': '12345',
+    'database': 'Users',
+    'port': 3306
+}
 
-    )
-except mariadb. Error as e:
-    print(f"Error connecting to MariaDB Platform:
-    sys.exit(1)
+@app.route('/')
+def home():
+    try:
+        # Conexión a la base de datos
+        conn = mariadb.connect(**db_config)
+        cursor = conn.cursor()
+        cursor.execute("SELECT Name, LastName FROM Users")
+        users = cursor.fetchall()
+        cursor.close()
+        conn.close()
+        
+        # Renderiza la plantilla con los datos obtenidos
+        return render_template('index.html', users=users)
+    except mariadb.Error as e:
+        return f"Error connecting to the database: {e}"
 
-# Get Cursor
-cur = conn. cursor ()
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000)

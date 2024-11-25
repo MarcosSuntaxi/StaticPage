@@ -1,0 +1,42 @@
+# Entornos virtuales
+.venv/
+.env/
+
+# Archivos de configuración sensibles
+*.env
+db_config.json
+
+# Archivos de Python compilados
+__pycache__/
+*.py[cod]
+
+# Archivos de log
+*.log
+
+# Archivos temporales y de sistema
+*.bak
+*.swp
+*.tmp
+.DS_Store
+Thumbs.db
+
+# Carpetas específicas de Flask
+instance/
+*.sqlite3
+
+# Dependencias
+*.egg-info/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Archivos de despliegue
+*.pid
+
+# Otros relacionados con IDEs o editores
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Subidas accidentales de seguridad
+app_key.json
